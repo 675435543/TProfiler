@@ -12,7 +12,6 @@ import com.taobao.profile.Manager;
 import com.taobao.profile.Profiler;
 import com.taobao.profile.config.ProfFilter;
 import com.taobao.profile.dependence_query.mysql.MysqlProfClassAdapter;
-import com.taobao.profile.dependence_query.mysql.MysqlProfFilter;
 import org.objectweb.asm.ClassAdapter;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
@@ -41,7 +40,12 @@ public class ProfTransformer implements ClassFileTransformer {
 	private byte[] transform4Mysql(ClassLoader loader, String className, Class<?> classBeingRedefined,
 								   ProtectionDomain protectionDomain, byte[] classfileBuffer){
 		try {
-			if(!MysqlProfFilter.getInstance().isNeedInject(className)){
+
+			if (className == null || !className.contains("mysql")){
+				return null ;
+			}
+
+			if(!ProfFilter.isNeedInject(className)){
 				return null;
 			}
 
@@ -73,12 +77,11 @@ public class ProfTransformer implements ClassFileTransformer {
 		if (loader != null && ProfFilter.isNotNeedInjectClassLoader(loader.getClass().getName())) {
 			return classfileBuffer;
 		}
-
 		//如果可以注入mysql成功；则不再继续注入
-		//byte[] temp = transform4Mysql(loader, className, classBeingRedefined, protectionDomain, classfileBuffer);
-		//if(temp!=null){
-		//	return temp;
-		//}
+		byte[] temp = transform4Mysql(loader, className, classBeingRedefined, protectionDomain, classfileBuffer);
+		if(temp!=null){
+			return temp;
+		}
 
 		if (!ProfFilter.isNeedInject(className)) {
 			return classfileBuffer;

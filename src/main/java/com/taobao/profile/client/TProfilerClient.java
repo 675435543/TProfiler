@@ -8,15 +8,11 @@
  */
 package com.taobao.profile.client;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import com.taobao.profile.Manager;
+
+import java.io.*;
 import java.net.Socket;
 import java.net.UnknownHostException;
-
-import com.taobao.profile.Manager;
 
 /**
  * TProfiler客户端,用来远程打开 关闭及查看状态
@@ -83,6 +79,7 @@ public class TProfilerClient {
 			out.write(command.getBytes());
 			out.write('\r');
 			out.flush();
+			System.out.println("flushmethod OK");
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
