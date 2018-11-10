@@ -8,20 +8,10 @@
  */
 package com.taobao.profile.analysis;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
-
 import com.taobao.profile.utils.MathUtils;
+
+import java.io.*;
+import java.util.*;
 
 /**
  * 分析Profiler生成的Log
@@ -50,6 +40,7 @@ public class ProfilerLogAnalysis {
 		ProfilerLogAnalysis analysis = new ProfilerLogAnalysis(args[0], args[1]);
 		analysis.reader();
 		analysis.printResult(args[2], args[3]);
+		System.out.println("print result success");
 	}
 
 	/**

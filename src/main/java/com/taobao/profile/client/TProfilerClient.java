@@ -79,7 +79,7 @@ public class TProfilerClient {
 			out.write(command.getBytes());
 			out.write('\r');
 			out.flush();
-			System.out.println("flushmethod OK");
+			System.out.println("flushmethod success");
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
