@@ -8,19 +8,18 @@
  */
 package com.taobao.profile.instrument;
 
-import java.lang.instrument.ClassFileTransformer;
-import java.lang.instrument.IllegalClassFormatException;
-import java.security.ProtectionDomain;
-
+import com.taobao.profile.Manager;
+import com.taobao.profile.Profiler;
+import com.taobao.profile.config.ProfFilter;
 import com.taobao.profile.dependence_query.mysql.MysqlProfClassAdapter;
 import com.taobao.profile.dependence_query.mysql.MysqlProfFilter;
 import org.objectweb.asm.ClassAdapter;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 
-import com.taobao.profile.Manager;
-import com.taobao.profile.Profiler;
-import com.taobao.profile.config.ProfFilter;
+import java.lang.instrument.ClassFileTransformer;
+import java.lang.instrument.IllegalClassFormatException;
+import java.security.ProtectionDomain;
 
 /**
  * 自定义ClassFileTransformer,用于转换类字节码
@@ -76,10 +75,10 @@ public class ProfTransformer implements ClassFileTransformer {
 		}
 
 		//如果可以注入mysql成功；则不再继续注入
-		byte[] temp = transform4Mysql(loader, className, classBeingRedefined, protectionDomain, classfileBuffer);
-		if(temp!=null){
-			return temp;
-		}
+		//byte[] temp = transform4Mysql(loader, className, classBeingRedefined, protectionDomain, classfileBuffer);
+		//if(temp!=null){
+		//	return temp;
+		//}
 
 		if (!ProfFilter.isNeedInject(className)) {
 			return classfileBuffer;
